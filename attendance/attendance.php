@@ -26,7 +26,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check_stmt->num_rows > 0) {
             $check_stmt->bind_result($attendance_id, $sign_in_time);
             $check_stmt->fetch();
-            echo "You have already signed in today at " . $sign_in_time;
+            echo <<<EOL
+            <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Attendance Already Signed',
+                        text: 'You have already signed in today at $sign_in_time',
+                    });
+                });
+            </script>
+        EOL;
+        
         } else {
             $insert_query = "INSERT INTO attendance (student_id, date_signed, time) VALUES (?, ?, NOW())";
             $insert_stmt = $mysqli->prepare($insert_query);
@@ -34,7 +46,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($insert_stmt->execute()) {
                 $current_time = date("H:i:s");
-                echo "Attendance signed successfully at " . $current_time . " on " . $today;
+                echo <<<EOL
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Attendance Signed Successfully',
+                            text: 'Attendance signed successfully at $current_time on $today',
+                        });
+                    });
+                </script>
+            EOL;
+            
             } else {
                 echo "Error: " . $insert_stmt->error;
             }
@@ -43,7 +67,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $check_stmt->close();
     } else {
-        echo "Invalid code or student selection. Please check and try again.";
+        echo <<<EOL
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Invalid code or student selection. Please check and try again.',
+                });
+            });
+        </script>
+    EOL;
+    
     }
 
     $code_check_stmt->close();

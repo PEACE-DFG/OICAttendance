@@ -1,79 +1,73 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
-body{
+
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background:linear-gradient(rgb(0,0,0,0.6),rgb(0,0,0,0.6)),url('../images/oic.png');
+    background: linear-gradient(rgb(0, 0, 0, 0.6), rgb(0, 0, 0, 0.6)), url('../images/oic.png');
     background-attachment: fixed;
     background-repeat: repeat-x;
     background-size: contain;
+    font-family: Arial, sans-serif;
 }
-.wrapper{
+
+.wrapper {
     position: relative;
-    width: 750px;
-    height: 550px;
-    background: transparent;
+    width: 100%;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.7);
     border: 2px solid #8ef;
     overflow: hidden;
-
-}
-caption{
-    text-align: center;
-}
-.wrapper .form-box{
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    /* background: red; */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-}
-.wrapper .form-box.login{
-    left: 0;
-    padding: 0 40px;
-}
-.form-box h2{
-    font-size: 10px;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: white;
-    text-align: center;
-
 }
-.input-box{
+
+.wrapper h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-box.login {
+    width: 100%;
+}
+
+.input-box {
     position: relative;
     width: 100%;
-    height: 50px;
-    margin: 20px 0;
-    transition: .5s;
+    margin-bottom: 20px;
 }
+
 .input-box input:focus,
-.input-box input:valid{
-border-bottom: 2px solid #8ef;
+.input-box input:valid {
+    border-bottom: 2px solid #8ef;
+    color: #fff;
 }
-.input-box input{
+
+.input-box input {
     width: 100%;
-    height: 100%;
+    height: 40px;
     background: transparent;
     border: none;
     outline: none;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid grey;
     font-size: 16px;
     color: white;
     font-weight: 500;
-    transition: .5s;
     padding-right: 32px;
-    /* margin: 5px 0px; */
-
 }
 
-.input-box label{
+.input-box label {
     position: absolute;
     top: 50%;
     left: 0;
@@ -81,29 +75,52 @@ border-bottom: 2px solid #8ef;
     font-size: 16px;
     color: white;
     pointer-events: none;
-    transition: .5s;
+    transition: 0.5s;
+    font-weight: 900;
 }
+
 .input-box input:focus~label,
-.input-box input:valid~label{
+.input-box input:valid~label {
     top: -5px;
     color: #8ef;
 }
-.input-box i{
+
+.input-box i {
     position: absolute;
     top: 50%;
     right: 0;
     transform: translateY(-50%);
     font-size: 14px;
     color: white;
-    transition: .5s;
+    transition: 0.5s;
+    padding-bottom: 30px;
 }
 
 .input-box input:focus~i,
-.input-box input:valid~i{
-color: #8ef;
+.input-box input:valid~i {
+    color: #8ef;
 }
-.btn{
-    position: relative;
+
+.form-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#role {
+    width: 100%;
+    height: 40px;
+    background:#8ef ;
+    border: 2px solid #8ef;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    border-radius: 5px;
+    
+}
+
+.btn {
     width: 100%;
     height: 45px;
     background: transparent;
@@ -114,111 +131,28 @@ color: #8ef;
     font-size: 16px;
     color: #fff;
     font-weight: 600;
-    z-index: 1;
-    overflow: hidden;
+    transition: 0.3s;
 }
 
-.btn::before{
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 300%;
-    top: -100%;
-    left: 0;
-    z-index: -1;
-    color: white;
-    font-weight: 900;
-    transition: .5s;
-    background: linear-gradient(#081b29,#8ef,#081b29,#8ef);
+.btn:hover {
+    background: #8ef;
+    color: #000;
 }
-.btn:hover::before{
-    top: 0;
-    color: white;
 
-}
-.form-box .logreg-link{
-    font-size: 14.5px;
-    color: white;
+.info-text {
     text-align: center;
-    margin: 20px 0px 10px;
-
+    font-size: 16px;
+    margin-top: 20px;
 }
 
-.logreg-link p a{
+.info-text h2 {
+    font-size: 28px;
     color: #8ef;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.logreg-link p a:hover{
-
-    text-decoration: underline;
-}
-.wrapper .info-text{
-    position: absolute;
-    top: 0;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.wrapper .info-text.login{
-    right: 0;
-    text-align: right;
-    padding: 0px 40px 60px 150px;
-}
-#role{
-margin-top:20px ;
-}
-.info-text h2{
-    font-size: 32px;
-    color: white;
     line-height: 1.3;
     text-transform: uppercase;
 }
-.info-text p{
+
+.info-text p {
     font-size: 16px;
     color: white;
-}
-.wrapper
- .bg-animate
-{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 850px;
-    height: 600px;
-    border-bottom: 3px solid #8ef;
-    background: linear-gradient(45deg,#081b29 , rgb(0,0,0,0.4));
-    transform: rotate(10deg) skewY(40deg);
-    transform-origin: bottom right;
-}
-.wrapper
- .b-animate
-{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 850px;
-    height: 600px;
-    border-right: 3px solid #8ef;
-    background: linear-gradient(45deg,#081b29 , rgb(0,0,0,0.4));
-    transform: rotate(50deg) skewY(48deg);
-    transform-origin: bottom right;
-}
-.info-text.login{
- border: 1px solid transparent;
- box-shadow: 5px 5px white;
- width: min-content;
-
-}
-@media(max-width:669px){
-    #block{
-        display: none;
-    }
-    body{
-        display: block; 
-    }
 }
