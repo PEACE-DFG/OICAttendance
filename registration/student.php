@@ -70,7 +70,7 @@ function sendRegistrationEmail($email, $name, $codeid, &$mail)
                 You can use this code ID for signing your attendance.<br><br>
                 Welcome to OIC-Hub!<br><br>
                 Best regards,<br>
-                Your Name";
+                CODEMaster";
 
     if ($mail->send()) {
         return true;
@@ -91,22 +91,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Create a PHPMailer object
     $mail = new PHPMailer();
 
-    if (checkDuplicateRegistration($email, $currentDate)) {
-        echo <<<EOL
-<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'You have already registered. Duplicate registrations are not allowed.',
-        });
-    });
-</script>
-EOL;
-    } else {
-        if (insertStudentRecord($name, $course, $phone_number, $email, $role, $codeid, $currentDate)) {
-            if (sendRegistrationEmail($email, $name, $codeid, $mail)) {
+    if (sendRegistrationEmail($email, $name, $codeid, $mail)) {
+        if (!checkDuplicateRegistration($email, $currentDate)) {
+            if (insertStudentRecord($name, $course, $phone_number, $email, $role, $codeid, $currentDate)) {
                 echo <<<EOL
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script>
@@ -122,7 +109,24 @@ EOL;
 </script>
 EOL;
             } else {
-                echo <<<EOL
+                echo "Error: Failed to insert student record.";
+            }
+        } else {
+            echo <<<EOL
+<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'You have already registered. Duplicate registrations are not allowed.',
+        });
+    });
+</script>
+EOL;
+        }
+    } else {
+        echo <<<EOL
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -134,10 +138,5 @@ EOL;
     });
 </script>
 EOL;
-            }
-        } else {
-            echo "Error: Failed to insert student record.";
-        }
     }
 }
-?>
